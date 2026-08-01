@@ -1,39 +1,36 @@
-<div align="center">
-
 # 🟣 Nunito Library
 
-**Modern, aesthetic, and modular UI library for Roblox.**  
-*Designed with a focus on performance, smooth animations, and a clean square aesthetic.*
-
 <p align="center">
-  <img src="https://img.shields.io/badge/Roblox-Studio-blue?style=for-the-badge&logo=roblox" alt="Roblox" />
-  <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License" />
-  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status" />
+  <img src="https://shields.io" alt="License">
+  <img src="https://shields.io" alt="Stars">
+  <img src="https://shields.io" alt="Top Language">
 </p>
 
-</div>
+---
+
+**Nunito Library** — это современная, эстетичная и модульная UI-библиотека для Roblox. Разработана с упором на максимальную производительность, плавные анимации и строгий квадратный дизайн (clean square aesthetic).
 
 ---
 
-## ✨ Features
+## ✨ Особенности (Features)
 
-* **🎨 Purple Gradient Aesthetic:** Deep black background (`#0A0A0A`) with vibrant purple accents.
-* **📦 Modular Components:** Toggle, Slider, Dropdown, Keybind, Button, Textbox, and ColorPicker.
-* **💾 Config System:** Full filesystem support (*Save, Load, Delete, Refresh*).
-* **🔔 Notification System:** Animated pop-ups with 4 types: `Error`, `Warning`, `Success`, and `Info`.
-* **🎨 Theme Engine:** Dynamically switch between `Purple`, `Blue`, `Red`, and `Green` themes.
-* **🚀 Optimized:** Smooth tweens, zero memory leaks, and a clean code structure.
-* **🖱️ Interactive:** Draggable window, minimize/close buttons, and fluid hover effects.
+*   🎨 **Purple Gradient Aesthetic:** Глубокий черный бэкграунд (`#0A0A0A`) в сочетании с яркими фиолетовыми градиентными акцентами.
+*   📦 **Модульные компоненты:** Toggle, Slider, Dropdown, Keybind, Button, Textbox и ColorPicker.
+*   💾 **Система конфигов:** Полная поддержка файловой системы (Сохранение, Загрузка, Удаление, Обновление).
+*   🔔 **Система уведомлений:** Анимированные поп-апы с 4 типами: *Error, Warning, Success* и *Info*.
+*   🌈 **Theme Engine:** Динамическое переключение между темами: *Purple, Blue, Red* и *Green*.
+*   🚀 **Оптимизация:** Плавные твины (Tweens), полное отсутствие утечек памяти и чистая архитектура кода.
+*   🖱️ **Интерактивность:** Перетаскиваемые окна (Draggable), кнопки сворачивания/закрытия и адаптивные hover-эффекты.
 
 ---
 
-## 📦 Quick Start & Usage Example
+## 🚀 Быстрый старт & Пример (Usage)
 
-Вставь следующий код в контроллер или скрипт своего исполнителя:
+Вставьте следующий Lua-скрипт в ваш контроллер или исполнитель (executor):
 
 ```lua
 -- Загрузка библиотеки Nunito Library
-local Nunito = loadstring(game:HttpGet("[https://raw.githubusercontent.com/WareSploit/Nunito-Library/main/Nunito.lua](https://raw.githubusercontent.com/WareSploit/Nunito-Library/main/Nunito.lua)"))()
+local Nunito = loadstring(game:HttpGet("https://raw.githubusercontent.com/WareSploit/Nunito-Library/main/Nunito.lua"))()
 
 -- Создание главного окна
 local Window = Nunito:CreateWindow({
@@ -108,13 +105,69 @@ ElementsSection:Button({
         Window:SendNotification("Warning: Action executed!", "warning", 4)
     end
 })
+```
 
-📚 API ReferenceNunito:CreateWindow(config)Создает главное окно пользовательского интерфейса.config.Title (string): Заголовок окна.Window:CreateTab(name)Добавляет новую вкладку на боковую панель.name (string): Название вкладки.Tab:CreateSection(name)Группирует элементы управления внутри вкладки.name (string): Заголовок секции.Компоненты управления (Section:...)КомпонентПараметры и типыОписаниеToggleText (string), Default (boolean), Callback (function)Переключатель состояния (true / false).SliderText (string), Min (number), Max (number), Default (number), Callback (function)Настраиваемый числовой ползунок.DropdownText (string), Options (table), Default (string), Callback (function)Выпадающий список элементов.KeybindText (string), Default (Enum.KeyCode), Callback (function)Назначение горячей клавиши.ButtonText (string), Callback (function)Триггерная кнопка с нажатием.TextboxText (string), Placeholder (string), Callback (function)Поле для ввода текста (срабатывает при потере фокуса).Window:SendNotification(text, type, duration)Показывает всплывающее уведомление на экране.text (string): Текст сообщения.type (string): "error", "warning", "success" или "info".duration (number): Время отображения в секундах.📂 Project StructurePlaintextNunito-Library/
-├── README.md       # Full documentation & Quick Start
-├── Nunito.lua      # Core GUI Library Module
-└── example.lua     # Extended usage example
-📝 LicenseThis project is licensed under the MIT License. See the LICENSE file for details.🙌 CreditsDeveloped by: WareSploitDesign inspired by: Modern minimalist aesthetics and square UI trends.
-<ElicitationsGroup message="Что сделать дальше?">
-  <Elicitation label="Написать полный код основного модуля Nunito.lua" query="Напиши исходный код библиотеки Nunito.lua на Roblox Lua с реализацией элементов UI."/>
-  <Elicitation label="Создать файл example.lua" query="Создай полный отдельный файл example.lua со всеми примерами использования."/>
-</ElicitationsGroup>
+---
+
+## 📚 Документация API (API Reference)
+
+### 🪟 Инициализация интерфейса
+
+#### `Nunito:CreateWindow(config)`
+Создает главное окно пользовательского интерфейса.
+*   `config.Title` *(string)* — Заголовок окна.
+
+#### `Window:CreateTab(name)`
+Добавляет новую вкладку на боковую панель.
+*   `name` *(string)* — Название вкладки.
+
+#### `Tab:CreateSection(name)`
+Группирует элементы управления внутри конкретной вкладки.
+*   `name` *(string)* — Заголовок секции.
+
+---
+
+### 🎛️ Компоненты управления (`Section:...`)
+
+| Компонент | Параметры и типы | Описание |
+| :--- | :--- | :--- |
+| **Toggle** | `Text` (str), `Default` (bool), `Callback` (func) | Переключатель состояния (`true` / `false`). |
+| **Slider** | `Text` (str), `Min` (num), `Max` (num), `Default` (num), `Callback` (func) | Настраиваемый числовой ползунок. |
+| **Dropdown** | `Text` (str), `Options` (table), `Default` (str), `Callback` (func) | Выпадающий список элементов. |
+| **Keybind** | `Text` (str), `Default` (Enum.KeyCode), `Callback` (func) | Назначение горячей клавиши для действия. |
+| **Button** | `Text` (str), `Callback` (func) | Триггерная кнопка для выполнения функции. |
+| **Textbox** | `Text` (str), `Placeholder` (str), `Callback` (func) | Поле для ввода текста (срабатывает при потере фокуса). |
+
+---
+
+### 🔔 Системные вызовы
+
+#### `Window:SendNotification(text, type, duration)`
+Показывает красивое всплывающее уведомление на экране пользователя.
+*   `text` *(string)* — Текст сообщения.
+*   `type` *(string)* — Тип иконки/стиля: `"error"`, `"warning"`, `"success"` или `"info"`.
+*   `duration` *(number)* — Время отображения в секундах до исчезновения.
+
+---
+
+## 📂 Структура проекта (Project Structure)
+
+```plaintext
+Nunito-Library/
+├── README.md       # Подробная документация и быстрый старт
+├── Nunito.lua      # Ядро библиотеки (Core GUI Module)
+└── example.lua     # Расширенный пример использования всех функций
+```
+
+---
+
+## 🤝 Авторы и Благодарности (Credits)
+
+*   **Разработчик:** [@WareSploit](https://github.com)
+*   **Дизайн:** Вдохновлено современными трендами минимализма и плоских квадратных UI (Square UI).
+
+---
+
+## 📝 Лицензия (License)
+
+Проект распространяется под лицензией **MIT License**. Подробности читайте в файле [LICENSE](LICENSE).
