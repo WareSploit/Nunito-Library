@@ -6,51 +6,49 @@
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status" />
 </p>
 
-</div>
+---
+
+**Nunito Library** is a modern, aesthetic, and modular UI library for Roblox. Designed with a focus on maximum performance, smooth animations, and a strict square design (clean square aesthetic).
 
 ---
 
-**Nunito Library** — это современная, эстетичная и модульная UI-библиотека для Roblox. Разработана с упором на максимальную производительность, плавные анимации и строгий квадратный дизайн (clean square aesthetic).
+## ✨ Features
+
+*   🎨 **Purple Gradient Aesthetic:** Deep black background (`#0A0A0A`) combined with vibrant purple gradient accents.
+*   📦 **Modular Components:** Toggle, Slider, Dropdown, Keybind, Button, Textbox, and ColorPicker.
+*   💾 **Config System:** Full filesystem support (Save, Load, Delete, Refresh).
+*   🔔 **Notification System:** Animated pop-ups with 4 types: *Error, Warning, Success*, and *Info*.
+*   🌈 **Theme Engine:** Dynamic switching between themes: *Purple, Blue, Red*, and *Green*.
+*   🚀 **Optimization:** Smooth tweens, zero memory leaks, and clean code architecture.
+*   🖱️ **Interactivity:** Draggable windows, minimize/close buttons, and adaptive hover effects.
 
 ---
 
-## ✨ Особенности (Features)
+## 🚀 Quick Start & Usage
 
-*   🎨 **Purple Gradient Aesthetic:** Глубокий черный бэкграунд (`#0A0A0A`) в сочетании с яркими фиолетовыми градиентными акцентами.
-*   📦 **Модульные компоненты:** Toggle, Slider, Dropdown, Keybind, Button, Textbox и ColorPicker.
-*   💾 **Система конфигов:** Полная поддержка файловой системы (Сохранение, Загрузка, Удаление, Обновление).
-*   🔔 **Система уведомлений:** Анимированные поп-апы с 4 типами: *Error, Warning, Success* и *Info*.
-*   🌈 **Theme Engine:** Динамическое переключение между темами: *Purple, Blue, Red* и *Green*.
-*   🚀 **Оптимизация:** Плавные твины (Tweens), полное отсутствие утечек памяти и чистая архитектура кода.
-*   🖱️ **Интерактивность:** Перетаскиваемые окна (Draggable), кнопки сворачивания/закрытия и адаптивные hover-эффекты.
-
----
-
-## 🚀 Быстрый старт & Пример (Usage)
-
-Вставьте следующий Lua-скрипт в ваш контроллер или исполнитель (executor):
+Copy and paste the following Lua script into your executor:
 
 ```lua
--- Загрузка библиотеки Nunito Library
+-- Load Nunito Library
 local Nunito = loadstring(game:HttpGet("https://raw.githubusercontent.com/WareSploit/Nunito-Library/main/Nunito.lua"))()
 
--- Создание главного окна
+-- Create Main Window
 local Window = Nunito:CreateWindow({
     Title = "Nunito Library | Modern UI"
 })
 
--- Уведомление о старте
-Window:SendNotification("Успешно загружено!", "success", 3)
+-- Startup Notification
+Window:SendNotification("Successfully Loaded!", "success", 3)
 
--- Создание вкладок
+-- Create Tabs
 local MainTab = Window:CreateTab("Main")
 local SettingsTab = Window:CreateTab("Settings")
 
--- Создание секций
+-- Create Sections
 local MainSection = MainTab:CreateSection("Player Tweaks")
 local ElementsSection = MainTab:CreateSection("UI Elements")
 
--- Toggle (Переключатель)
+-- Toggle
 MainSection:Toggle({
     Text = "Enable Speed",
     Default = false,
@@ -59,7 +57,7 @@ MainSection:Toggle({
     end
 })
 
--- Slider (Ползунок)
+-- Slider
 MainSection:Slider({
     Text = "WalkSpeed",
     Min = 16,
@@ -72,7 +70,7 @@ MainSection:Slider({
     end
 })
 
--- Dropdown (Выпадающий список)
+-- Dropdown
 ElementsSection:Dropdown({
     Text = "Select Theme Mode",
     Options = {"Purple", "Blue", "Red", "Green"},
@@ -82,7 +80,7 @@ ElementsSection:Dropdown({
     end
 })
 
--- Keybind (Назначение клавиши)
+-- Keybind
 ElementsSection:Keybind({
     Text = "Toggle Menu Key",
     Default = Enum.KeyCode.RightControl,
@@ -91,7 +89,7 @@ ElementsSection:Keybind({
     end
 })
 
--- Textbox (Поле ввода)
+-- Textbox
 ElementsSection:Textbox({
     Text = "Custom Message",
     Placeholder = "Type here...",
@@ -100,13 +98,17 @@ ElementsSection:Textbox({
     end
 })
 
--- Button (Кнопка)
+-- Button
 ElementsSection:Button({
     Text = "Test Notification",
     Callback = function()
         Window:SendNotification("Warning: Action executed!", "warning", 4)
     end
 })
+
+-- Enable Systems
+Window:CreateConfigs()
+Window:CreateThemes()
 ```
 
 ---
