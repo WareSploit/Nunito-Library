@@ -1,11 +1,12 @@
 # 🟣 Nunito Library
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.0-purple?style=for-the-badge" alt="Version">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/github/stars/WareSploit/Nunito-Library?style=for-the-badge&color=yellow" alt="Stars">
+  <img src="https://img.shields.io/badge/Roblox-Studio-blue?style=for-the-badge&logo=roblox" alt="Roblox" />
+  <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status" />
 </p>
 
+</div>
 
 ---
 
