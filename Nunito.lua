@@ -109,6 +109,9 @@ function Nunito:CreateWindow(config)
     config = config or {}
     local self = setmetatable({}, Nunito)
     
+    -- ГЛОБАЛЬНАЯ таблица элементов для всего окна
+    local allElements = {}
+    
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "NunitoGUI"
     ScreenGui.ResetOnSpawn = false
@@ -211,7 +214,7 @@ function Nunito:CreateWindow(config)
     ContentArea.Parent = Window
 
     local Sidebar = Instance.new("Frame")
-    Sidebar.Size = UDim2.fromOffset(140, 1, 0)
+    Sidebar.Size = UDim2.new(0, 140, 1, 0)
     Sidebar.BackgroundColor3 = Theme.Background2
     Sidebar.BorderSizePixel = 0
     Sidebar.Parent = ContentArea
@@ -296,6 +299,7 @@ function Nunito:CreateWindow(config)
         table.insert(tabs, tab)
         if #tabs == 1 then switchTab(tab) end
 
+        -- Локальная таблица элементов для этой вкладки
         local elements = {}
 
         function tab:CreateSection(name)
@@ -400,6 +404,7 @@ function Nunito:CreateWindow(config)
 
                 if state then update() end
                 table.insert(elements, {Key = config.Text, Type = "Toggle", API = api})
+                table.insert(allElements, {Key = config.Text, Type = "Toggle", API = api})
                 return api
             end
 
@@ -487,6 +492,7 @@ function Nunito:CreateWindow(config)
                 function api:Get() return val end
 
                 table.insert(elements, {Key = config.Text, Type = "Slider", API = api})
+                table.insert(allElements, {Key = config.Text, Type = "Slider", API = api})
                 return api
             end
 
@@ -516,7 +522,7 @@ function Nunito:CreateWindow(config)
                 Label.Position = UDim2.fromOffset(8, 0)
                 Label.Size = UDim2.new(1, -40, 1, 0)
                 Label.Font = Enum.Font.RobotoMono
-                Label.Text = (config.Text or "Dropdown") .. ": " .. selected
+                Label.Text = (config.Text or "Dropdown") .. ": " .. tostring(selected)
                 Label.TextColor3 = Theme.Text
                 Label.TextSize = 13
                 Label.TextXAlignment = Enum.TextXAlignment.Left
@@ -550,7 +556,7 @@ function Nunito:CreateWindow(config)
                         Btn.BackgroundColor3 = Theme.Background2
                         Btn.BorderSizePixel = 0
                         Btn.Font = Enum.Font.RobotoMono
-                        Btn.Text = "  " .. opt
+                        Btn.Text = "  " .. tostring(opt)
                         Btn.TextColor3 = Theme.Text
                         Btn.TextSize = 12
                         Btn.TextXAlignment = Enum.TextXAlignment.Left
@@ -558,7 +564,7 @@ function Nunito:CreateWindow(config)
                         
                         Btn.MouseButton1Click:Connect(function()
                             selected = opt
-                            Label.Text = (config.Text or "Dropdown") .. ": " .. selected
+                            Label.Text = (config.Text or "Dropdown") .. ": " .. tostring(selected)
                             if config.Callback then config.Callback(selected) end
                             open = false
                             tween(Frame, {Size = UDim2.new(1, 0, 0, 28)}, 0.2)
@@ -585,12 +591,13 @@ function Nunito:CreateWindow(config)
                 end
                 function api:Set(opt)
                     selected = opt
-                    Label.Text = (config.Text or "Dropdown") .. ": " .. selected
+                    Label.Text = (config.Text or "Dropdown") .. ": " .. tostring(selected)
                 end
                 function api:Get() return selected end
 
                 rebuild()
                 table.insert(elements, {Key = config.Text, Type = "Dropdown", API = api})
+                table.insert(allElements, {Key = config.Text, Type = "Dropdown", API = api})
                 return api
             end
 
@@ -624,7 +631,7 @@ function Nunito:CreateWindow(config)
                 KeyBtn.BackgroundColor3 = Theme.Background
                 KeyBtn.BorderSizePixel = 0
                 KeyBtn.Font = Enum.Font.RobotoMono
-                KeyBtn.Text = key == Enum.KeyCode.Unknown and "None" :gsub("Enum.KeyCode.", "")
+                KeyBtn.Text = key == Enum.KeyCode.Unknown and "None" or tostring(key):gsub("Enum.KeyCode.", "")
                 KeyBtn.TextColor3 = Theme.Accent2
                 KeyBtn.TextSize = 12
                 KeyBtn.Parent = Frame
@@ -664,6 +671,7 @@ function Nunito:CreateWindow(config)
                 function api:Get() return key end
 
                 table.insert(elements, {Key = config.Text, Type = "Keybind", API = api})
+                table.insert(allElements, {Key = config.Text, Type = "Keybind", API = api})
                 return api
             end
             
@@ -693,6 +701,60 @@ function Nunito:CreateWindow(config)
                 Btn.MouseButton1Click:Connect(function()
                     if config.Callback then config.Callback() end
                 end)
+            end
+
+            function sec:Textbox(config)
+                config = config or {}
+                local api = {}
+                local text = config.Default or ""
+
+                local Frame = Instance.new("Frame")
+                Frame.Size = UDim2.new(1, 0, 0, 28)
+                Frame.BackgroundColor3 = Theme.Background3
+                Frame.BorderSizePixel = 0
+                Frame.Parent = SecContent
+                makeStroke(Frame)
+
+                local Label = Instance.new("TextLabel")
+                Label.BackgroundTransparency = 1
+                Label.Position = UDim2.fromOffset(8, 0)
+                Label.Size = UDim2.new(0.4, 0, 1, 0)
+                Label.Font = Enum.Font.RobotoMono
+                Label.Text = config.Text or "Textbox"
+                Label.TextColor3 = Theme.Text
+                Label.TextSize = 13
+                Label.TextXAlignment = Enum.TextXAlignment.Left
+                Label.Parent = Frame
+
+                local InputBox = Instance.new("TextBox")
+                InputBox.Size = UDim2.new(0.55, -12, 0, 20)
+                InputBox.Position = UDim2.new(0.45, 6, 0.5, -10)
+                InputBox.BackgroundColor3 = Theme.Background
+                InputBox.BorderSizePixel = 0
+                InputBox.Font = Enum.Font.RobotoMono
+                InputBox.Text = text
+                InputBox.PlaceholderText = config.Placeholder or ""
+                InputBox.PlaceholderColor3 = Theme.TextDim
+                InputBox.TextColor3 = Theme.Text
+                InputBox.TextSize = 12
+                InputBox.ClearTextOnFocus = false
+                InputBox.Parent = Frame
+                makeStroke(InputBox)
+
+                InputBox.FocusLost:Connect(function(enterPressed)
+                    text = InputBox.Text
+                    if config.Callback then config.Callback(text) end
+                end)
+
+                function api:Set(v)
+                    text = tostring(v or "")
+                    InputBox.Text = text
+                end
+                function api:Get() return text end
+
+                table.insert(elements, {Key = config.Text, Type = "Textbox", API = api})
+                table.insert(allElements, {Key = config.Text, Type = "Textbox", API = api})
+                return api
             end
 
             return sec
@@ -781,7 +843,7 @@ function Nunito:CreateWindow(config)
             Callback = function()
                 if nameBox:Get() == "" then return end
                 local data = {}
-                for _, el in ipairs(elements) do
+                for _, el in ipairs(allElements) do
                     data[el.Key] = {Type = el.Type, Value = el.API:Get()}
                 end
                 if saveConfig(nameBox:Get(), data) then
@@ -796,7 +858,7 @@ function Nunito:CreateWindow(config)
             Callback = function()
                 local data = loadConfig(listDrop:Get())
                 if data then
-                    for _, el in ipairs(elements) do
+                    for _, el in ipairs(allElements) do
                         local d = data[el.Key]
                         if d and d.Type == el.Type then el.API:Set(d.Value) end
                     end
